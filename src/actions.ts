@@ -138,72 +138,84 @@ export function UpdateActions(self: ModuleInstance): void {
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 1',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_2_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 2',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_3_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 3',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_4_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 4',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_5_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 5',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_6_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 6',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_7_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 7',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_8_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 8',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_9_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 9',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_10_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 10',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_11_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 11',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 				{
 					id: 'output_to_input_12_str',
 					type: 'textinput',
 					label: 'Assign Output(s) to Input 12',
 					tooltip: 'Multiple outputs separated by commas (example: 1,2,3,4)',
+					default: '0',
 				},
 			],
 
@@ -219,37 +231,60 @@ export function UpdateActions(self: ModuleInstance): void {
 					']},' +
 					'{"input":2,"output":[' +
 					event.options.output_to_input_2_str +
-					']}' +
+					']},' +
 					'{"input":3,"output":[' +
 					event.options.output_to_input_3_str +
-					']}' +
+					']},' +
 					'{"input":4,"output":[' +
 					event.options.output_to_input_4_str +
-					']}' +
+					']},' +
 					'{"input":5,"output":[' +
 					event.options.output_to_input_5_str +
-					']}' +
+					']},' +
 					'{"input":6,"output":[' +
 					event.options.output_to_input_6_str +
-					']}' +
+					']},' +
 					'{"input":7,"output":[' +
 					event.options.output_to_input_7_str +
-					']}' +
+					']},' +
 					'{"input":8,"output":[' +
 					event.options.output_to_input_8_str +
-					']}' +
+					']},' +
 					'{"input":9,"output":[' +
 					event.options.output_to_input_9_str +
-					']}' +
+					']},' +
 					'{"input":10,"output":[' +
 					event.options.output_to_input_10_str +
-					']}' +
+					']},' +
 					'{"input":11,"output":[' +
 					event.options.output_to_input_11_str +
-					']}' +
+					']},' +
 					'{"input":12,"output":[' +
 					event.options.output_to_input_12_str +
-					']}]'
+					']}]}]'
+				console.log(url)
+				httpSend(self, ip, port, url)
+			},
+		},
+
+		take_salvo_action: {
+			name: 'Take Salvo',
+			options: [
+				{
+					id: 'take_salvo_str',
+					type: 'textinput',
+					label: 'Salvo Name To Take',
+					tooltip: omit_char_str,
+				},
+			],
+
+			// http://192.168.0.5/cgi-bin/command.cgi?cmd=Salvo&param=[{"func":"take","name":"salvo2"}]
+			callback: async function (event) {
+				const ip = self.config.host
+				const port = self.config.port
+				const url =
+					'/cgi-bin/command.cgi?cmd=Salvo&param=[{"func":"take","name":"' + event.options.take_salvo_str + '"}]'
+				console.log(url)
 				httpSend(self, ip, port, url)
 			},
 		},
