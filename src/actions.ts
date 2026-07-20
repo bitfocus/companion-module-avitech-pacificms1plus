@@ -1,10 +1,10 @@
 import { ModuleInstance } from './main.js'
 import * as http from 'http'
 
-export function httpSend(self: ModuleInstance, host: string, port: number, url: string): void {
+export function httpSend(self: ModuleInstance, url: string): void {
 	const options = {
-		hostname: host,
-		port: port || 80,
+		hostname: self.config.host,
+		port: self.config.port || 80,
 		path: url,
 		method: 'GET',
 	}
@@ -47,10 +47,8 @@ export function UpdateActions(self: ModuleInstance): void {
 			],
 			name: 'Get Device Info',
 			callback: async function () {
-				const ip = self.config.host
-				const port = self.config.port
 				const url = '/cgi-bin/command.cgi?cmd=Info&param=[{"func":"get","type":"device"}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -65,11 +63,9 @@ export function UpdateActions(self: ModuleInstance): void {
 			],
 			name: 'Set IP Address',
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=Info&param=[{"func":"set","type":"ip","value":"' + event.options.set_ip_str + '"}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -84,13 +80,11 @@ export function UpdateActions(self: ModuleInstance): void {
 			],
 			name: 'Set Machine Name',
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=Info&param=[{"func":"set","type":"name","value":"' +
 					event.options.set_machinename_str +
 					'"}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -112,15 +106,13 @@ export function UpdateActions(self: ModuleInstance): void {
 				},
 			],
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=Route&param=[{"func":"set","route":[{"input":' +
 					event.options.input_str +
 					',"output":[' +
 					event.options.output_str +
 					']}]}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -220,8 +212,6 @@ export function UpdateActions(self: ModuleInstance): void {
 			],
 
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=Salvo&param=[{"func":"set","name":"' +
 					event.options.salvo_str +
@@ -262,7 +252,7 @@ export function UpdateActions(self: ModuleInstance): void {
 					'{"input":12,"output":[' +
 					event.options.output_to_input_12_str +
 					']}]}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -279,11 +269,9 @@ export function UpdateActions(self: ModuleInstance): void {
 
 			// http://192.168.0.5/cgi-bin/command.cgi?cmd=Salvo&param=[{"func":"take","name":"salvo2"}]
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=Salvo&param=[{"func":"take","name":"' + event.options.take_salvo_str + '"}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -336,15 +324,13 @@ export function UpdateActions(self: ModuleInstance): void {
 			],
 
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=Info&param=[{"func":"set","type":"genlabel","sib_label":[{"port":' +
 					event.options.port_dropdown +
 					',"label":"' +
 					event.options.port_str +
 					'"}]}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -381,15 +367,13 @@ export function UpdateActions(self: ModuleInstance): void {
 			],
 
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=2060&param=[{"func":"set","type":"preset","location":' +
 					event.options.location_num +
 					',"port":1,"data":{"preset_name":"' +
 					event.options.preset_dropdown +
 					'"}}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -436,8 +420,6 @@ export function UpdateActions(self: ModuleInstance): void {
 			],
 
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=2060&param=[{"func":"load","type":"preset","location":' +
 					event.options.location_num +
@@ -446,7 +428,7 @@ export function UpdateActions(self: ModuleInstance): void {
 					'},"return_response":' +
 					event.options.return_response_dropdown +
 					'}}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -463,13 +445,11 @@ export function UpdateActions(self: ModuleInstance): void {
 			],
 
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=Daisy&param=[{"func":"preset","type":"set","name":"' +
 					event.options.preset_name_str +
 					'"}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 
@@ -486,13 +466,11 @@ export function UpdateActions(self: ModuleInstance): void {
 			],
 
 			callback: async function (event) {
-				const ip = self.config.host
-				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=Daisy&param=[{"func":"preset","type":"load","data":{"preset_name":"' +
 					event.options.preset_name_str +
 					'"}}]'
-				httpSend(self, ip, port, url)
+				httpSend(self, url)
 			},
 		},
 	})
